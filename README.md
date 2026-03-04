@@ -10,7 +10,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-helm repo add daytonaio https://charts.daytona.io
+helm repo add daytonaio https://designverse-ai.github.io/daytona-helm-charts
 ```
 
 You can then run `helm search repo daytonaio` to see the charts.

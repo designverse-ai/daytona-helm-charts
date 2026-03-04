@@ -28,7 +28,7 @@ jobs:
           helm_version: 3.14.4
           token: ${{ secrets.GITHUB_TOKEN }}
           charts_dir: charts
-          charts_url: https://charts.daytona.io
+          charts_url: https://designverse-ai.github.io/daytona-helm-charts
           branch: releases
           target_dir: charts
           index_dir: .
