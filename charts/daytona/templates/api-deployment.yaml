@@ -144,7 +144,7 @@ spec:
             {{- end }}
             # Proxy Configuration
             - name: PROXY_DOMAIN
-              value: {{ printf "proxy.%s" .Values.baseDomain | quote }}
+              value: {{ printf "proxy-%s" .Values.baseDomain | quote }}
             - name: PROXY_PROTOCOL
               value: {{ .Values.services.proxy.env.PROXY_PROTOCOL | default "http" | quote }}
             {{- if .Values.services.proxy.env.PROXY_API_KEY }}
@@ -155,11 +155,11 @@ spec:
             # SSH Gateway Configuration
             {{- if not .Values.services.sshGateway.env.SSH_GATEWAY_HOST }}
             - name: SSH_GATEWAY_HOST
-              value: {{ printf "ssh.%s" .Values.baseDomain | quote }}
+              value: {{ printf "ssh-%s" .Values.baseDomain | quote }}
             - name: SSH_GATEWAY_COMMAND
-              value: "ssh -p {{ .Values.services.sshGateway.env.SSH_GATEWAY_PORT }} {{`{{TOKEN}}`}}@{{ printf "ssh.%s" .Values.baseDomain  }}"
+              value: "ssh -p {{ .Values.services.sshGateway.env.SSH_GATEWAY_PORT }} {{`{{TOKEN}}`}}@{{ printf "ssh-%s" .Values.baseDomain  }}"
             - name: SSH_GATEWAY_URL
-              value: {{ printf "ssh.%s:%s" .Values.baseDomain (.Values.services.sshGateway.env.SSH_GATEWAY_PORT | toString) | quote }}
+              value: {{ printf "ssh-%s:%s" .Values.baseDomain (.Values.services.sshGateway.env.SSH_GATEWAY_PORT | toString) | quote }}
             {{- end }}
             - name: SSH_GATEWAY_PUBLIC_KEY
               valueFrom:
@@ -229,7 +229,7 @@ spec:
             # OIDC Configuration
             {{- if .Values.dex.enabled }}
             # Dex is enabled - use Dex configuration
-            {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex.%s" .Values.baseDomain) -}}
+            {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex-%s" .Values.baseDomain) -}}
             {{- $templatedDexHostname := tpl $dexHostname $ -}}
             {{- $dexIssuerUrl := "" -}}
             {{- if .Values.dex.config.issuer -}}

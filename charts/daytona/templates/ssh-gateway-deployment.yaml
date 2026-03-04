@@ -53,7 +53,7 @@ spec:
             {{- end }}
             {{- if not .Values.services.sshGateway.env.SSH_GATEWAY_HOST }}
             - name: SSH_GATEWAY_HOST
-              value: {{ printf "ssh.%s" .Values.baseDomain | quote }}
+              value: {{ printf "ssh-%s" .Values.baseDomain | quote }}
             {{- end }}
             - name: API_URL
               value: "http://{{ include "daytona.fullname" . }}-api:{{ .Values.services.api.env.PORT }}/api"

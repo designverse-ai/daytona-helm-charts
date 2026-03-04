@@ -168,7 +168,7 @@ Usage:
 {{/*
 Extract base domain from proxyUrl by stripping the first subdomain (e.g., "proxy.").
 Example: "https://proxy.example.com:4000" -> "example.com"
-Example: "https://proxy.sub.example.com:4000" -> "sub.example.com"
+Example: "https://proxy-sub.example.com:4000" -> "sub.example.com"
 Usage:
 {{ include "daytona.proxyUrl.baseDomain" . }}
 */}}

@@ -243,7 +243,7 @@ When `services.api.autoscaling.enabled=true`, the HPA will manage the replica co
 | `services.proxy.ingress.enabled` | Enable Proxy ingress | `true` |
 | `services.proxy.ingress.className` | Proxy ingress class | `"nginx"` |
 | `services.proxy.ingress.annotations` | Proxy ingress annotations | `{}` |
-| `services.proxy.ingress.hostname` | Proxy ingress hostname | `""` (ignored - wildcard `*.{{baseDomain}}` is hardcoded) |
+| `services.proxy.ingress.hostname` | Proxy ingress hostname | `""` (ignored - wildcard `*-{{baseDomain}}` is hardcoded) |
 | `services.proxy.ingress.path` | Proxy ingress path | `"/"` |
 | `services.proxy.ingress.pathType` | Proxy ingress path type | `"Prefix"` |
 | `services.proxy.ingress.tls` | Enable TLS | `true` |
@@ -276,12 +276,12 @@ When `services.api.autoscaling.enabled=true`, the HPA will manage the replica co
 #### Proxy Environment Variables
 
 - `PROXY_PORT`: Proxy port | `""` (defaults to 4000 if not set)
-- `PROXY_DOMAIN`: Proxy domain (auto-generated as `proxy.{{baseDomain}}:{{PROXY_PORT}}` if empty)
+- `PROXY_DOMAIN`: Proxy domain (auto-generated as `proxy-{{baseDomain}}:{{PROXY_PORT}}` if empty)
 - `PROXY_API_KEY`: Proxy API key | `"super_secret_key"`
 - `PROXY_PROTOCOL`: Proxy protocol | `"http"`
 - `OIDC_CLIENT_SECRET`: OIDC client secret | `""`
 
-**Note:** Proxy ingress automatically includes a wildcard host (`*.hostname`) to support unique subdomains per sandbox workspace. Custom TLS certificates must include both the domain and its wildcard in the Subject Alternative Names (SAN).
+**Note:** Proxy ingress automatically includes a wildcard host (`*-hostname`) to support unique subdomains per sandbox workspace. Custom TLS certificates must include both the domain and its wildcard in the Subject Alternative Names (SAN).
 
 **Horizontal Pod Autoscaler (HPA):**
 When `services.proxy.autoscaling.enabled=true`, the HPA will manage the replica count automatically based on CPU and/or memory utilization. The `replicaCount` value is ignored when HPA is enabled. The HPA supports:
@@ -473,7 +473,7 @@ The following values are automatically generated from `baseDomain` if not set or
 - `DASHBOARD_URL`: `https://{{baseDomain}}/dashboard`
 - `DASHBOARD_BASE_API_URL`: `https://{{baseDomain}}`
 - `SSH_GATEWAY_HOST`: `ssh.{{baseDomain}}`
-- `PROXY_DOMAIN`: `proxy.{{baseDomain}}:{{PROXY_PORT}}`
+- `PROXY_DOMAIN`: `proxy-{{baseDomain}}:{{PROXY_PORT}}`
 
 When Harbor is enabled, the following are automatically configured:
 - `TRANSIENT_REGISTRY_URL`: Uses `harbor.externalURL`
@@ -548,7 +548,7 @@ The Proxy service provides secure HTTP/HTTPS access to sandboxes running on Dayt
 - Handles authentication callbacks and cookie management
 
 **Access Pattern:**
-- Public endpoint: `https://*.daytona.example.com` (wildcard subdomain)
+- Public endpoint: `https://*-daytona.example.com` (wildcard subdomain)
 - Routes to: `daytona-proxy.daytona.svc.local:4000`
 - Example: `https://3000-abc123.daytona.example.com` → routes to port 3000 of sandbox `abc123`
 

@@ -7,7 +7,7 @@
 {{- $apiHostname := .Values.services.api.ingress.hostname | default .Values.baseDomain }}
 {{- $templatedApiHostname := tpl $apiHostname $ }}
 {{- $dexIngressEnabled := and .Values.dex.enabled .Values.dex.ingress.enabled .Values.dex.ingress.tls }}
-{{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex.%s" .Values.baseDomain) }}
+{{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex-%s" .Values.baseDomain) }}
 {{- $templatedDexHostname := tpl $dexHostname $ }}
 {{- if $apiIngressEnabled }}
    # Access via Ingress (TLS enabled):

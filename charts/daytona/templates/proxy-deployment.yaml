@@ -91,7 +91,7 @@ spec:
             # OIDC Configuration
             {{- if .Values.dex.enabled }}
             # Dex is enabled - use Dex configuration
-            {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex.%s" .Values.baseDomain) -}}
+            {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex-%s" .Values.baseDomain) -}}
             {{- $templatedDexHostname := tpl $dexHostname $ -}}
             {{- $dexIssuerUrl := "" -}}
             {{- if .Values.dex.config.issuer -}}

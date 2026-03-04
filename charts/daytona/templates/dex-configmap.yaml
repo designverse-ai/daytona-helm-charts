@@ -9,7 +9,7 @@ metadata:
     app.kubernetes.io/component: dex
 data:
   config.yaml: |
-    {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex.%s" .Values.baseDomain) -}}
+    {{- $dexHostname := .Values.dex.ingress.hostname | default (printf "dex-%s" .Values.baseDomain) -}}
     {{- $templatedDexHostname := tpl $dexHostname $ -}}
     {{- $dexIssuer := "" -}}
     {{- if .Values.dex.config.issuer -}}
@@ -47,8 +47,8 @@ data:
           {{- if and .Values.services.api.ingress.enabled $templatedApiHostname }}
           - {{ printf "https://%s" $templatedApiHostname | quote }}
           - {{ printf "https://%s/api/oauth2-redirect.html" $templatedApiHostname | quote }}
-          - {{ printf "https://proxy.%s/callback" $templatedApiHostname | quote }}
-          - {{ printf "https://proxy.%s" $templatedApiHostname | quote }}
+          - {{ printf "https://proxy-%s/callback" $templatedApiHostname | quote }}
+          - {{ printf "https://proxy-%s" $templatedApiHostname | quote }}
           {{- end }}
           - "http://localhost:8080"
           - "http://localhost:8080/api/oauth2-redirect.html"

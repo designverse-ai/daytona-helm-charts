@@ -3,8 +3,8 @@
 {{- $svcPort := .Values.services.proxy.service.port -}}
 {{- $baseDomain := .Values.baseDomain -}}
 {{- $templatedBaseDomain := tpl $baseDomain $ -}}
-{{- $proxyHostname := printf "proxy.%s" $templatedBaseDomain -}}
-{{- $wildcardBaseDomain := printf "*.proxy.%s" $templatedBaseDomain -}}
+{{- $proxyHostname := printf "proxy-%s" $templatedBaseDomain -}}
+{{- $wildcardBaseDomain := printf "*.proxy-%s" $templatedBaseDomain -}}
 {{- if and .Values.services.proxy.ingress.className (not (hasKey .Values.services.proxy.ingress.annotations "kubernetes.io/ingress.class")) }}
   {{- $_ := set .Values.services.proxy.ingress.annotations "kubernetes.io/ingress.class" .Values.services.proxy.ingress.className}}
 {{- end }}
@@ -25,7 +25,7 @@ spec:
   ingressClassName: {{ .Values.services.proxy.ingress.className }}
   {{- end }}
   rules:
-    # Proxy subdomain (exact match, e.g., proxy.daytona.example.com)
+    # Proxy subdomain (exact match, e.g., proxy-daytona.example.com)
     - host: {{ $proxyHostname | quote }}
       http:
         paths:
@@ -74,7 +74,7 @@ spec:
     # Use wildcard certificate (covers all subdomains including proxy subdomain)
     - hosts:
         - {{ $wildcardBaseDomain | quote }}
-      secretName: {{ .Values.services.proxy.ingress.tlsSecretName | default (printf "proxy.%s-tls" $templatedBaseDomain) }}
+      secretName: {{ .Values.services.proxy.ingress.tlsSecretName | default (printf "proxy-%s-tls" $templatedBaseDomain) }}
     {{- if .Values.services.proxy.ingress.extraTls }}
     {{- toYaml .Values.services.proxy.ingress.extraTls | nindent 4 }}
     {{- end }}

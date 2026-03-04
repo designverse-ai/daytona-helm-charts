@@ -1,7 +1,7 @@
 {{- if and .Values.dex.enabled .Values.dex.ingress.enabled -}}
 {{- $fullName := include "daytona.fullname" . -}}
 {{- $svcPort := .Values.dex.service.port | default 5556 -}}
-{{- $hostname := .Values.dex.ingress.hostname | default (printf "dex.%s" .Values.baseDomain) -}}
+{{- $hostname := .Values.dex.ingress.hostname | default (printf "dex-%s" .Values.baseDomain) -}}
 {{- $templatedHostname := tpl $hostname $ -}}
 {{- if and .Values.dex.ingress.className (not (hasKey .Values.dex.ingress.annotations "kubernetes.io/ingress.class")) }}
   {{- $_ := set .Values.dex.ingress.annotations "kubernetes.io/ingress.class" .Values.dex.ingress.className}}

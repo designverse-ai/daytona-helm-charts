@@ -13,9 +13,12 @@ keywords:
 home: https://daytona.io
 sources:
   - https://github.com/daytonaio/daytona
+  - https://github.com/designverse-ai/daytona-helm-charts
 maintainers:
   - name: Daytona
     email: engineering@daytona.io
+  - name: Designverse
+    email: alex.g@designverse.ai
 dependencies:
   - name: postgresql
     version: "16.7.27"

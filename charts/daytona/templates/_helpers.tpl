@@ -152,8 +152,8 @@ Usage:
     {{- end -}}
   {{- end -}}
 {{- else -}}
-  {{- /* Auto-generate proxy.{{baseDomain}} */ -}}
-  {{- $baseDomain = printf "proxy.%s" .Values.baseDomain -}}
+  {{- /* Auto-generate proxy-{{baseDomain}} */ -}}
+  {{- $baseDomain = printf "proxy-%s" .Values.baseDomain -}}
   {{- if $shouldOmitPort -}}
     {{- $baseDomain -}}
   {{- else -}}

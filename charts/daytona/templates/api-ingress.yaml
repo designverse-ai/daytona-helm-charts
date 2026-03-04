@@ -58,7 +58,7 @@ spec:
     {{- $templatedHostname := tpl $hostname $ -}}
     {{- $baseDomain := .Values.baseDomain -}}
     {{- $templatedBaseDomain := tpl $baseDomain $ -}}
-    {{- $wildcardBaseDomain := printf "*.%s" $templatedBaseDomain }}
+    {{- $wildcardBaseDomain := printf "*-%s" $templatedBaseDomain }}
     - hosts:
         - {{ $templatedHostname | quote }}
         - {{ $wildcardBaseDomain | quote }}

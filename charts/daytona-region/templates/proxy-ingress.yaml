@@ -2,7 +2,7 @@
 {{- $fullName := include "daytona.fullname" . -}}
 {{- $svcPort := .Values.services.proxy.service.port -}}
 {{- $proxyHostname := include "daytona.proxyUrl.hostname" . -}}
-{{- $wildcardProxyHostname := printf "*.%s" $proxyHostname -}}
+{{- $wildcardProxyHostname := printf "*-%s" $proxyHostname -}}
 {{- if and .Values.services.proxy.ingress.className (not (hasKey .Values.services.proxy.ingress.annotations "kubernetes.io/ingress.class")) }}
   {{- $_ := set .Values.services.proxy.ingress.annotations "kubernetes.io/ingress.class" .Values.services.proxy.ingress.className}}
 {{- end }}
@@ -23,7 +23,7 @@ spec:
   ingressClassName: {{ .Values.services.proxy.ingress.className }}
   {{- end }}
   rules:
-    # Proxy subdomain (exact match, e.g., proxy.daytona.example.com)
+    # Proxy subdomain (exact match, e.g., proxy-daytona.example.com)
     - host: {{ $proxyHostname | quote }}
       http:
         paths:
@@ -38,7 +38,7 @@ spec:
                 port:
                   number: {{ $svcPort }}
     # Wildcard host for all subdomains - routes to proxy service
-    # This handles sandbox subdomains like: 3000-sandbox-id.proxy.daytona.example.com
+    # This handles sandbox subdomains like: 3000-sandbox-id-proxy-daytona.example.com
     - host: {{ $wildcardProxyHostname | quote }}
       http:
         paths:

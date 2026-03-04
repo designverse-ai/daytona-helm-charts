@@ -13,6 +13,7 @@ keywords:
 home: https://daytona.io
 sources:
   - https://github.com/daytonaio/daytona
+  - https://github.com/designverse-ai/daytona-helm-charts
 maintainers:
   - name: Daytona
     email: engineering@daytona.io

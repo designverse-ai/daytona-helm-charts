@@ -36,7 +36,7 @@ Custom regions allow organizations to:
 regionName: "my-custom-region"
 
 # Proxy URL - the full URL where the proxy will be accessible
-proxyUrl: "https://proxy.mycompany.daytona.io"
+proxyUrl: "https://proxy-mycompany.daytona.io"
 
 # Daytona API credentials (obtain from your Daytona organization)
 daytonaApiUrl: "https://api.daytona.io/api"
@@ -82,7 +82,7 @@ helm uninstall my-region
 | Parameter | Description | Example |
 |-----------|-------------|---------|
 | `regionName` | Unique identifier for this region | `"eu-west-region"` |
-| `proxyUrl` | Full URL to the proxy service | `"https://proxy.eu.mycompany.io"` |
+| `proxyUrl` | Full URL to the proxy service | `"https://proxy-eu.mycompany.io"` |
 | `daytonaApiUrl` | Daytona API endpoint | `"https://api.daytona.io/api"` |
 | `daytonaApiKey` | API key for authentication | `"dtn_xxx..."` |
 
@@ -140,7 +140,7 @@ helm uninstall my-region
 
 The `proxyUrl` is the source of truth for proxy configuration. The following values are automatically derived:
 
-- **Proxy hostname**: Extracted from `proxyUrl` (e.g., `proxy.example.com`)
+- **Proxy hostname**: Extracted from `proxyUrl` (e.g., `proxy-example.domain.com`)
 - **Proxy port**: Extracted from `proxyUrl` (e.g., `4000`) or defaults to standard ports
 - **Protocol**: Extracted from `proxyUrl` (e.g., `https`)
 - **Cookie domain**: Base domain extracted by stripping first subdomain (e.g., `example.com`)
@@ -149,8 +149,8 @@ The `proxyUrl` is the source of truth for proxy configuration. The following val
 ## TLS Configuration
 
 The proxy ingress creates rules for both the proxy hostname and a wildcard pattern for sandbox subdomains:
-- `proxy.example.com` - Main proxy endpoint
-- `*.proxy.example.com` - Sandbox subdomain routing
+- `proxy-example.domain.com` - Main proxy endpoint
+- `*-proxy-example.domain.com` - Sandbox subdomain routing
 
 Your TLS certificate should cover both patterns. Options:
 

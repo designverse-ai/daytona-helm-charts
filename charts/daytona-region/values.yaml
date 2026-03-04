@@ -13,7 +13,7 @@ global:
 regionName: ""
 
 # Proxy URL (required) - full URL to the proxy service
-# Example: "https://proxy.daytona.example.com" or "http://proxy.daytona.example.com:4000"
+# Example: "https://proxy-daytona.example.com" or "http://proxy-daytona.example.com:4000"
 proxyUrl: ""
 
 # Snapshot Manager URL (optional) - full URL to the snapshot manager service
@@ -23,8 +23,8 @@ proxyUrl: ""
 snapshotManagerUrl: ""
 
 # Daytona API configuration (required)
-daytonaApiUrl: ""   # e.g., "https://api.daytona.io/api"
-daytonaApiKey: ""   # API key for authentication
+daytonaApiUrl: "" # e.g., "https://api.daytona.io/api"
+daytonaApiKey: "" # API key for authentication
 
 # Service-specific configurations
 services:
@@ -91,7 +91,7 @@ services:
     env:
       # PROXY_DOMAIN and PROXY_PROTOCOL are derived from proxyUrl - no need to set them
       # PROXY_API_KEY is obtained from the registration secret when registration.enabled=true
-      COOKIE_DOMAIN: ""  # Optional: override cookie domain (defaults to base domain from proxyUrl)
+      COOKIE_DOMAIN: "" # Optional: override cookie domain (defaults to base domain from proxyUrl)
     # Resource limits and requests
     resources:
       limits:
